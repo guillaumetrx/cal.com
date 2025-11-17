@@ -83,6 +83,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     resolve: {
+      preserveSymlinks: true,
       alias: {
         fs: resolve("../../../node_modules/rollup-plugin-node-builtins"),
         path: resolve("../../../node_modules/rollup-plugin-node-builtins"),
@@ -93,7 +94,7 @@ export default defineConfig(({ mode }) => {
         "@radix-ui/react-tooltip": path.resolve(__dirname, "./src/components/ui/tooltip.tsx"),
         "@radix-ui/react-dialog": path.resolve(__dirname, "./src/components/ui/dialog.tsx"),
         "@calcom/prisma/client/runtime/library": resolve("./prisma-types/index.ts"),
-        "@calcom/prisma/client": path.resolve(__dirname, "../../../prisma/kysely/types.ts"),
+        "@calcom/prisma/client": path.resolve(__dirname, "../../kysely/types.ts"),
         kysely: path.resolve(__dirname, "./kysely-types/index.ts"),
         "@calcom/dayjs": path.resolve(__dirname, "../../dayjs"),
         "@calcom/platform-constants": path.resolve(__dirname, "../constants/index.ts"),

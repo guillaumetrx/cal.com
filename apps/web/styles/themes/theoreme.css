@@ -1,0 +1,13 @@
+/* Thème Theoreme pour Cal.com */
+:root {
+  --cal-brand: #FF8A4C;
+  --cal-brand-emphasis: #E67A3C;
+  --cal-brand-text: #FFFFFF;
+  --cal-brand-subtle: rgba(255, 138, 76, 0.1);
+}
+
+/* Personnalisations supplémentaires */
+[data-theme="theoreme"] {
+  --cal-brand: #FF8A4C;
+  --cal-brand-emphasis: #E67A3C;
+}

@@ -35,9 +35,10 @@ generator kysely {
   fileName = "types.ts"
 }
 
-generator enums {
-  provider = "ts-node --transpile-only ./enum-generator.ts"
-}
+// Temporairement désactivé pour générer le client Prisma
+// generator enums {
+//   provider = "ts-node --transpile-only ./enum-generator.ts"
+// }
 
 enum SchedulingType {
   ROUND_ROBIN @map("roundRobin")

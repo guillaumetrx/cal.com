@@ -41,6 +41,7 @@
   "types": "index.d.ts",
   "files": [
     "client",
+    "enums",
     "generated/prisma",
     "zod",
     "zod-utils.ts"

@@ -24,7 +24,10 @@
     "paths": {
       "~/*": ["./*"],
       "@calcom/prisma": ["../prisma"],
-      "@calcom/prisma/*": ["../prisma/*"]
+      "@calcom/prisma/*": ["../prisma/*"],
+      "@calcom/prisma/enums": ["../prisma/enums/index.ts"],
+      "@calcom/prisma/zod-utils": ["../prisma/zod-utils.ts"],
+      "@calcom/prisma/selects": ["../prisma/selects/index.ts"]
     }
   }
 }

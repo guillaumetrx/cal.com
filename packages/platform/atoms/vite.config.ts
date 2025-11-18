@@ -6,9 +6,12 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), ""); // .env inside of packages/platform/atoms
-  const webAppUrl = env.NEXT_PUBLIC_WEBAPP_URL ?? "https://app.cal.com";
-  const calcomVersion = env.NEXT_PUBLIC_CALCOM_VERSION ?? "";
-  const vercelCommitSha = env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "";
+  // Clean the webAppUrl to remove any quotes, newlines, or whitespace
+  const webAppUrl = (env.NEXT_PUBLIC_WEBAPP_URL ?? "https://app.cal.com")
+    .trim()
+    .replace(/^["']|["']$/g, ""); // Remove surrounding quotes if present
+  const calcomVersion = (env.NEXT_PUBLIC_CALCOM_VERSION ?? "").trim();
+  const vercelCommitSha = (env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "").trim();
 
   return {
     optimizeDeps: {

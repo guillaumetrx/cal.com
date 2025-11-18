@@ -20,8 +20,11 @@
     "resolveJsonModule": true,
     "declarationDir": "types/server",
     "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@calcom/prisma": ["../prisma"],
+      "@calcom/prisma/*": ["../prisma/*"]
     }
   }
 }

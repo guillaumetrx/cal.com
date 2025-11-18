@@ -43,7 +43,8 @@
     ".": "./index.ts",
     "./enums": "./enums/index.ts",
     "./client": "./client/index.ts",
-    "./zod-utils": "./zod-utils.ts"
+    "./zod-utils": "./zod-utils.ts",
+    "./selects": "./selects/index.ts"
   },
   "files": [
     "client",

@@ -71,6 +71,7 @@ export default defineConfig(({ mode }) => {
           "react-dom/client",
           "@prisma/client",
           "react/jsx-dev-runtime",
+          "@calcom/prisma/enums",
         ],
         output: {
           format: "esm",
@@ -95,6 +96,7 @@ export default defineConfig(({ mode }) => {
         "@radix-ui/react-dialog": path.resolve(__dirname, "./src/components/ui/dialog.tsx"),
         "@calcom/prisma/client/runtime/library": resolve("./prisma-types/index.ts"),
         "@calcom/prisma/client": path.resolve(__dirname, "../../kysely/types.ts"),
+        "@calcom/prisma/enums": path.resolve(__dirname, "../../prisma/enums/index.ts"),
         kysely: path.resolve(__dirname, "./kysely-types/index.ts"),
         "@calcom/dayjs": path.resolve(__dirname, "../../dayjs"),
         "@calcom/platform-constants": path.resolve(__dirname, "../constants/index.ts"),

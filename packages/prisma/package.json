@@ -51,7 +51,8 @@
     "enums",
     "generated/prisma",
     "zod",
-    "zod-utils.ts"
+    "zod-utils.ts",
+    "selects"
   ],
   "prisma": {
     "seed": "yarn seed-basic"

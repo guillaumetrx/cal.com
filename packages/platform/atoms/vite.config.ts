@@ -61,18 +61,35 @@ export default defineConfig(({ mode }) => {
         formats: ["es"],
       },
       rollupOptions: {
-        external: [
-          "react",
-          "fs",
-          "path",
-          "os",
-          "react/jsx-runtime",
-          "react-dom",
-          "react-dom/client",
-          "@prisma/client",
-          "react/jsx-dev-runtime",
-          "@calcom/prisma/enums",
-        ],
+        external: (id) => {
+          // External modules that should not be bundled
+          const externalModules = [
+            "react",
+            "fs",
+            "path",
+            "os",
+            "react/jsx-runtime",
+            "react-dom",
+            "react-dom/client",
+            "@prisma/client",
+            "react/jsx-dev-runtime",
+            "@calcom/prisma/enums",
+            "@calcom/prisma/zod-utils",
+          ];
+          
+          // Check if the module is in the external list
+          if (externalModules.includes(id)) {
+            return true;
+          }
+          
+          // Also externalize @calcom/prisma modules if they're being resolved
+          if (id === "@calcom/prisma/enums" || id.includes("@calcom/prisma/enums") ||
+              id === "@calcom/prisma/zod-utils" || id.includes("@calcom/prisma/zod-utils")) {
+            return true;
+          }
+          
+          return false;
+        },
         output: {
           format: "esm",
           globals: {
@@ -97,6 +114,7 @@ export default defineConfig(({ mode }) => {
         "@calcom/prisma/client/runtime/library": resolve("./prisma-types/index.ts"),
         "@calcom/prisma/client": path.resolve(__dirname, "../../kysely/types.ts"),
         "@calcom/prisma/enums": path.resolve(__dirname, "../../prisma/enums/index.ts"),
+        "@calcom/prisma/zod-utils": path.resolve(__dirname, "../../prisma/zod-utils.ts"),
         kysely: path.resolve(__dirname, "./kysely-types/index.ts"),
         "@calcom/dayjs": path.resolve(__dirname, "../../dayjs"),
         "@calcom/platform-constants": path.resolve(__dirname, "../constants/index.ts"),

@@ -91,6 +91,11 @@ export default defineConfig(({ mode }) => {
             return true;
           }
           
+          // Externalize JSON locale files
+          if (id.includes("@calcom/web/public/static/locales") && id.endsWith(".json")) {
+            return true;
+          }
+          
           return false;
         },
         output: {
@@ -126,6 +131,30 @@ export default defineConfig(({ mode }) => {
         "@calcom/web/public/static/locales/en/common.json": path.resolve(
           __dirname,
           "../../../apps/web/public/static/locales/en/common.json"
+        ),
+        "@calcom/web/public/static/locales/de/common.json": path.resolve(
+          __dirname,
+          "../../../apps/web/public/static/locales/de/common.json"
+        ),
+        "@calcom/web/public/static/locales/es/common.json": path.resolve(
+          __dirname,
+          "../../../apps/web/public/static/locales/es/common.json"
+        ),
+        "@calcom/web/public/static/locales/fr/common.json": path.resolve(
+          __dirname,
+          "../../../apps/web/public/static/locales/fr/common.json"
+        ),
+        "@calcom/web/public/static/locales/it/common.json": path.resolve(
+          __dirname,
+          "../../../apps/web/public/static/locales/it/common.json"
+        ),
+        "@calcom/web/public/static/locales/nl/common.json": path.resolve(
+          __dirname,
+          "../../../apps/web/public/static/locales/nl/common.json"
+        ),
+        "@calcom/web/public/static/locales/pt-BR/common.json": path.resolve(
+          __dirname,
+          "../../../apps/web/public/static/locales/pt-BR/common.json"
         ),
       },
     },

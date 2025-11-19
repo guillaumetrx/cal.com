@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules",
-    "build": "echo 'Prisma build step - migrations will run during deployment'",
+    "build": "ts-node --transpile-only ./auto-migrations.ts",
     "db-deploy": "yarn prisma migrate deploy",
     "db-migrate": "yarn prisma migrate dev",
     "db-nuke": "docker compose down --volumes --remove-orphans || docker-compose down --volumes --remove-orphans",
@@ -41,11 +41,9 @@
   "types": "index.d.ts",
   "files": [
     "client",
-    "enums",
     "generated/prisma",
     "zod",
-    "zod-utils.ts",
-    "selects"
+    "zod-utils.ts"
   ],
   "prisma": {
     "seed": "yarn seed-basic"

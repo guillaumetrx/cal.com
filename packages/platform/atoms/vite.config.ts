@@ -6,12 +6,9 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), ""); // .env inside of packages/platform/atoms
-  // Clean the webAppUrl to remove any quotes, newlines, or whitespace
-  const webAppUrl = (env.NEXT_PUBLIC_WEBAPP_URL ?? "https://app.cal.com")
-    .trim()
-    .replace(/^["']|["']$/g, ""); // Remove surrounding quotes if present
-  const calcomVersion = (env.NEXT_PUBLIC_CALCOM_VERSION ?? "").trim();
-  const vercelCommitSha = (env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "").trim();
+  const webAppUrl = env.NEXT_PUBLIC_WEBAPP_URL ?? "https://app.cal.com";
+  const calcomVersion = env.NEXT_PUBLIC_CALCOM_VERSION ?? "";
+  const vercelCommitSha = env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA ?? "";
 
   return {
     optimizeDeps: {
@@ -64,45 +61,17 @@ export default defineConfig(({ mode }) => {
         formats: ["es"],
       },
       rollupOptions: {
-        external: (id) => {
-          // External modules that should not be bundled
-          const externalModules = [
-            "react",
-            "fs",
-            "path",
-            "os",
-            "react/jsx-runtime",
-            "react-dom",
-            "react-dom/client",
-            "@prisma/client",
-            "react/jsx-dev-runtime",
-            "@calcom/prisma/enums",
-            "@calcom/prisma/zod-utils",
-          ];
-          
-          // Check if the module is in the external list
-          if (externalModules.includes(id)) {
-            return true;
-          }
-          
-          // Also externalize @calcom/prisma modules if they're being resolved
-          if (id === "@calcom/prisma/enums" || id.includes("@calcom/prisma/enums") ||
-              id === "@calcom/prisma/zod-utils" || id.includes("@calcom/prisma/zod-utils")) {
-            return true;
-          }
-          
-          // Externalize JSON locale files - match the full import path
-          if (id.startsWith("@calcom/web/public/static/locales/") && id.endsWith(".json")) {
-            return true;
-          }
-          
-          // Also match without the @calcom prefix if resolved differently
-          if (id.includes("/apps/web/public/static/locales/") && id.endsWith(".json")) {
-            return true;
-          }
-          
-          return false;
-        },
+        external: [
+          "react",
+          "fs",
+          "path",
+          "os",
+          "react/jsx-runtime",
+          "react-dom",
+          "react-dom/client",
+          "@prisma/client",
+          "react/jsx-dev-runtime",
+        ],
         output: {
           format: "esm",
           globals: {
@@ -114,7 +83,6 @@ export default defineConfig(({ mode }) => {
       },
     },
     resolve: {
-      preserveSymlinks: true,
       alias: {
         fs: resolve("../../../node_modules/rollup-plugin-node-builtins"),
         path: resolve("../../../node_modules/rollup-plugin-node-builtins"),
@@ -126,8 +94,6 @@ export default defineConfig(({ mode }) => {
         "@radix-ui/react-dialog": path.resolve(__dirname, "./src/components/ui/dialog.tsx"),
         "@calcom/prisma/client/runtime/library": resolve("./prisma-types/index.ts"),
         "@calcom/prisma/client": path.resolve(__dirname, "../../kysely/types.ts"),
-        "@calcom/prisma/enums": path.resolve(__dirname, "../../prisma/enums/index.ts"),
-        "@calcom/prisma/zod-utils": path.resolve(__dirname, "../../prisma/zod-utils.ts"),
         kysely: path.resolve(__dirname, "./kysely-types/index.ts"),
         "@calcom/dayjs": path.resolve(__dirname, "../../dayjs"),
         "@calcom/platform-constants": path.resolve(__dirname, "../constants/index.ts"),
@@ -136,30 +102,6 @@ export default defineConfig(({ mode }) => {
         "@calcom/web/public/static/locales/en/common.json": path.resolve(
           __dirname,
           "../../../apps/web/public/static/locales/en/common.json"
-        ),
-        "@calcom/web/public/static/locales/de/common.json": path.resolve(
-          __dirname,
-          "../../../apps/web/public/static/locales/de/common.json"
-        ),
-        "@calcom/web/public/static/locales/es/common.json": path.resolve(
-          __dirname,
-          "../../../apps/web/public/static/locales/es/common.json"
-        ),
-        "@calcom/web/public/static/locales/fr/common.json": path.resolve(
-          __dirname,
-          "../../../apps/web/public/static/locales/fr/common.json"
-        ),
-        "@calcom/web/public/static/locales/it/common.json": path.resolve(
-          __dirname,
-          "../../../apps/web/public/static/locales/it/common.json"
-        ),
-        "@calcom/web/public/static/locales/nl/common.json": path.resolve(
-          __dirname,
-          "../../../apps/web/public/static/locales/nl/common.json"
-        ),
-        "@calcom/web/public/static/locales/pt-BR/common.json": path.resolve(
-          __dirname,
-          "../../../apps/web/public/static/locales/pt-BR/common.json"
         ),
       },
     },

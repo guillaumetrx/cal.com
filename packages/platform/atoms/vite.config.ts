@@ -91,8 +91,13 @@ export default defineConfig(({ mode }) => {
             return true;
           }
           
-          // Externalize JSON locale files
-          if (id.includes("@calcom/web/public/static/locales") && id.endsWith(".json")) {
+          // Externalize JSON locale files - match the full import path
+          if (id.startsWith("@calcom/web/public/static/locales/") && id.endsWith(".json")) {
+            return true;
+          }
+          
+          // Also match without the @calcom prefix if resolved differently
+          if (id.includes("/apps/web/public/static/locales/") && id.endsWith(".json")) {
             return true;
           }
           
